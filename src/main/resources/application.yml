@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-user-management
+
+management:
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+    probes:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: info, health
+
+springdoc:
+  swagger-ui:
+    path: /user-management/docs
+  api-docs:
+    path: /user-management/api-docs
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: ${SPRING_PROFILES_ACTIVE:default}
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI}

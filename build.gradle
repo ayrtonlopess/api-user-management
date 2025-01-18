@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+
+group = 'com.compassion.user.management'
+version = '1.0.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+var swaggerVersion = "2.0.2"
+var mockitoVersion = "5.14.2"
+var validationVersion = "3.0.2"
+var hibernateValidatorVersion = "8.0.0.Final"
+var openApiVersion = "1.8.0"
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	//Swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
+
+	//Actuator
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+	//MongoDB
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	//Mockito
+	testImplementation ("org.mockito:mockito-core:$mockitoVersion")
+	testImplementation ("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+
+	//Validation
+	implementation ("jakarta.validation:jakarta.validation-api:$validationVersion")
+	implementation ("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
+
+	//Open Api
+	implementation ("org.springdoc:springdoc-openapi-ui:$openApiVersion")
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
